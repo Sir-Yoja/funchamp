@@ -10,6 +10,32 @@ type LeagueTab = "overview" | "table" | "matches" | "players" | "teams";
 type Page = "home" | "leagues" | "league";
 
 const leagues = [mplLeague];
+const leagueLogo = "https://mychamp.ru/system/championships/202/large.jpg";
+const teamLogos: Record<string, string> = {
+  "ФК Вечер Пятницы": "https://mychamp.ru/system/clubs/5326/mini.jpg",
+  "Тасманские Дьяволы": "https://mychamp.ru/system/clubs/14120/mini.jpg",
+  "Beamish FC": "https://mychamp.ru/system/clubs/2186/mini.jpg",
+  "ФК Ракета": "https://mychamp.ru/system/clubs/2178/mini.jpg",
+  "ФК Петруч": "https://mychamp.ru/system/clubs/7118/mini.jpg",
+  "ФК ЩИТ": "https://mychamp.ru/system/clubs/5296/mini.png",
+  "ФК Черные но Синие": "https://mychamp.ru/system/clubs/9018/mini.jpg",
+  "Fc King is Dead": "https://mychamp.ru/system/clubs/2182/mini.jpg",
+  "ФК Старые Дрожжи": "https://mychamp.ru/system/clubs/40343/mini.jpeg",
+  "ФК Клещи": "https://mychamp.ru/system/clubs/29818/mini.jpg",
+  "ФК Други": "https://mychamp.ru/system/clubs/9021/mini.jpg",
+  "ФК Душевой Флирт": "https://mychamp.ru/system/clubs/18308/mini.jpg",
+  "ЛФК Балдёж": "https://mychamp.ru/system/clubs/40283/mini.png",
+  "Bedros Pilibos": "https://mychamp.ru/system/clubs/35749/mini.jpg"
+};
+
+function ImageBadge({ src, name, size = 38 }: { src?: string; name: string; size?: number }) {
+  const [failed, setFailed] = useState(false);
+  return <span style={{ width: size, height: size }} className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[.06]">
+    {src && !failed
+      ? <img src={src} alt={name} className="h-full w-full object-contain p-1" onError={() => setFailed(true)}/>
+      : <span className="text-[10px] font-black text-emerald-200">{name.split(/\\s+/).slice(0,2).map(x => x[0]).join("").slice(0,3).toUpperCase()}</span>}
+  </span>;
+}
 
 export default function App() {
   const [page, setPage] = useState<Page>("home");
@@ -48,7 +74,7 @@ export default function App() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
           <button onClick={goHome} className="flex items-center gap-3 text-left">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-400 text-[#07110c]"><Trophy size={22}/></span>
-            <span><b className="block text-xl font-black tracking-tight">Liga<span className="text-emerald-400">Hub</span></b><small className="text-xs text-slate-400">Единая платформа футбольных лиг</small></span>
+            <span><b className="block text-xl font-black tracking-tight">Fan<span className="text-emerald-300">Champ</span></b><small className="text-xs text-slate-400">Футбольная платформа</small></span>
           </button>
           <nav className="hidden items-center gap-1 md:flex">
             {platformNav.map((item) => <button key={item.id} onClick={() => item.id === "home" ? goHome() : setPage("leagues")} className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition ${page === item.id || (page === "league" && item.id === "leagues") ? "bg-emerald-400/15 text-emerald-300" : "text-slate-400 hover:bg-white/5 hover:text-white"}`}><item.icon size={17}/>{item.label}</button>)}
@@ -65,7 +91,7 @@ export default function App() {
       )}
 
       <footer className="border-t border-white/10 px-4 py-7 text-center text-xs text-slate-600">
-        LigaHub · Платформа независимых футбольных лиг
+        FanChamp · Единая платформа любительского футбола
       </footer>
     </div>
   );
@@ -78,7 +104,7 @@ function PlatformHome({ onBrowse }: { onBrowse: () => void }) {
       <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl"/>
       <div className="relative mx-auto max-w-2xl">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-black/20 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-200"><span className="h-2 w-2 rounded-full bg-emerald-400"/>Футбольная экосистема</div>
-        <h1 className="text-4xl font-black leading-tight md:text-6xl">Liga<span className="text-emerald-300">Hub</span></h1>
+        <h1 className="text-4xl font-black leading-tight md:text-6xl">Fan<span className="text-emerald-300">Champ</span></h1>
         <p className="mt-5 text-sm leading-7 text-slate-300 md:text-lg">Единая платформа независимых футбольных лиг, команд и игроков.</p>
         <button onClick={onBrowse} className="mt-9 rounded-xl bg-emerald-400 px-8 py-4 text-base font-extrabold text-[#07110c] transition hover:bg-emerald-300">Войти в раздел лиг <ChevronRight className="ml-1 inline" size={19}/></button>
       </div>
@@ -97,7 +123,7 @@ function LeagueDirectory({ onOpenLeague }: { onOpenLeague: (id: string) => void 
 
 function LeagueCard({ league, onClick }: { league: typeof mplLeague; onClick: () => void }) {
   return <button onClick={onClick} className="group text-left rounded-2xl border border-white/10 bg-[#121a18] p-5 transition hover:-translate-y-1 hover:border-emerald-300/30 hover:bg-[#15221d]">
-    <div className="flex items-start justify-between gap-3"><span className="grid h-12 w-12 place-items-center rounded-xl bg-emerald-400/10 text-emerald-300"><Trophy size={23}/></span><span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-200">Сезон {league.season}</span></div>
+    <div className="flex items-start justify-between gap-3"><ImageBadge src={leagueLogo} name={league.name} size={54}/><span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-200">Сезон {league.season}</span></div>
     <h3 className="mt-5 text-xl font-black">{league.name}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{league.description}</p>
     <div className="mt-5 flex flex-wrap gap-3 text-xs text-slate-400"><span className="inline-flex items-center gap-1"><MapPin size={14}/>{league.city}</span><span className="inline-flex items-center gap-1"><Users size={14}/>{league.teams.length} команд</span></div>
     <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-sm font-bold text-emerald-300"><span>Открыть лигу</span><ChevronRight size={18} className="transition group-hover:translate-x-1"/></div>
@@ -115,7 +141,7 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
       <div className="absolute -right-10 -top-16 h-64 w-64 rounded-full border-[32px] border-emerald-300/5"/>
       <div className="relative">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-black/20 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-200">Лига · сезон {league.season}</div>
-        <h1 className="text-3xl font-black leading-tight md:text-5xl">{league.name}</h1>
+        <div className="mb-4 flex items-center gap-4"><ImageBadge src={leagueLogo} name={league.name} size={76}/><h1 className="text-3xl font-black leading-tight md:text-5xl">{league.name}</h1></div>
         <p className="mt-3 max-w-2xl text-sm text-slate-300 md:text-base">{league.description} · сезон №{league.seasonNumber}</p>
         <div className="mt-5 flex flex-wrap gap-3 text-sm text-slate-200"><span className="rounded-xl bg-black/20 px-4 py-2"><MapPin className="mr-2 inline" size={16}/>{league.city} · {league.stadium}</span><span className="rounded-xl bg-black/20 px-4 py-2"><Users className="mr-2 inline" size={16}/>{league.teams.length} команд</span></div>
       </div>
@@ -127,7 +153,7 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
     {tab === "players" && <PlayersPanel league={league}/>}
     {tab === "teams" && <TeamsPanel league={league}/>}
     <section className="mt-8 rounded-2xl border border-white/10 bg-[#101715] p-5">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"><div><b className="text-sm">Источники данных</b><p className="mt-1 text-xs leading-5 text-slate-500">Это импортированный снимок MyChamp, не автоматическая синхронизация в реальном времени.</p></div><div className="flex flex-wrap gap-3 text-sm font-bold text-emerald-300"><a href={league.source.matches} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Матчи <ExternalLink size={13}/></a><a href={league.source.statistics} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Статистика <ExternalLink size={13}/></a><a href={league.source.main} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">MyChamp <ExternalLink size={13}/></a></div></div>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"><div><b className="text-sm">Источники данных</b><p className="mt-1 text-xs leading-5 text-slate-500">Источник: MyChamp. Снимок публичных данных; дата последнего обновления источника не указана.</p></div><div className="flex flex-wrap gap-3 text-sm font-bold text-emerald-300"><a href={league.source.matches} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Матчи <ExternalLink size={13}/></a><a href={league.source.statistics} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Статистика <ExternalLink size={13}/></a><a href={league.source.main} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">MyChamp <ExternalLink size={13}/></a></div></div>
       <p className="mt-3 border-t border-white/5 pt-3 text-xs leading-5 text-amber-200/80">{league.dataNote}</p>
     </section>
   </main>;
@@ -152,21 +178,21 @@ function StandingsTable({ league }: { league: typeof mplLeague }) {
 }
 
 function StandingsRows({ league, rows }: { league: typeof mplLeague; rows: readonly typeof mplLeague.teams[number][] }) {
-  return <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-left text-sm"><thead className="border-b border-white/10 text-[11px] uppercase tracking-wider text-slate-500"><tr>{["#","Команда","И","В","Н","П","Мячи","+/-","О"].map((h,i)=><th key={h} className={`px-3 py-3 ${i>1?"text-center":""}`}>{h}</th>)}</tr></thead><tbody>{rows.map((team) => {const rank = league.teams.findIndex((t) => t.name === team.name)+1; return <tr key={team.name} className={`border-b border-white/5 last:border-0 ${team.name === "Beamish FC" ? "bg-emerald-400/[.07]" : ""}`}><td className="px-3 py-3 font-bold text-slate-500">{rank}</td><td className="px-3 py-3 font-bold">{team.name}{team.name==="Beamish FC"&&<span className="ml-2 rounded bg-emerald-400/15 px-1.5 py-0.5 text-[9px] font-black text-emerald-300">BEAMISH</span>}</td><td className="px-3 py-3 text-center">{team.played}</td><td className="px-3 py-3 text-center">{team.wins}</td><td className="px-3 py-3 text-center">{team.draws}</td><td className="px-3 py-3 text-center">{team.losses}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsFor}:{team.goalsAgainst}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsFor-team.goalsAgainst>0?"+":""}{team.goalsFor-team.goalsAgainst}</td><td className="px-3 py-3 text-center font-black text-emerald-300">{team.points}</td></tr>;})}</tbody></table></div>;
+  return <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-left text-sm"><thead className="border-b border-white/10 text-[11px] uppercase tracking-wider text-slate-500"><tr>{["#","Команда","И","В","Н","П","Мячи","+/-","О"].map((h,i)=><th key={h} className={`px-3 py-3 ${i>1?"text-center":""}`}>{h}</th>)}</tr></thead><tbody>{rows.map((team) => {const rank = league.teams.findIndex((t) => t.name === team.name)+1; return <tr key={team.name} className={`border-b border-white/5 last:border-0 ${team.name === "Beamish FC" ? "bg-emerald-400/[.07]" : ""}`}><td className="px-3 py-3 font-bold text-slate-500">{rank}</td><td className="px-3 py-3"><span className="flex items-center gap-3 font-bold"><ImageBadge src={teamLogos[team.name]} name={team.name} size={34}/>{team.name}{team.name==="Beamish FC"&&<span className="ml-2 rounded bg-emerald-400/15 px-1.5 py-0.5 text-[9px] font-black text-emerald-300">BEAMISH</span>}</td><td className="px-3 py-3 text-center">{team.played}</td><td className="px-3 py-3 text-center">{team.wins}</td><td className="px-3 py-3 text-center">{team.draws}</td><td className="px-3 py-3 text-center">{team.losses}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsFor}:{team.goalsAgainst}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsFor-team.goalsAgainst>0?"+":""}{team.goalsFor-team.goalsAgainst}</td><td className="px-3 py-3 text-center font-black text-emerald-300">{team.points}</td></tr>;})}</tbody></table></div>;
 }
 
 function MatchesPanel({ league }: { league: typeof mplLeague }) {
   const [round, setRound] = useState("all");
   const rounds = Array.from(new Set(league.matches.map((m) => m.round))).sort((a,b)=>a-b);
   const shown = round === "all" ? league.matches : league.matches.filter((m) => String(m.round) === round);
-  return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Матчи и результаты</h2><p className="mt-1 text-sm text-slate-400">Загруженные сыгранные матчи · {league.matches.length} результатов</p></div><select value={round} onChange={(e)=>setRound(e.target.value)} className="rounded-xl border border-white/10 bg-[#0b1210] px-3 py-2 text-sm text-slate-200 outline-none"><option value="all">Все загруженные туры</option>{rounds.map((n)=><option key={n} value={String(n)}>{n}-й тур</option>)}</select></div>
+  return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Матчи и результаты</h2><p className="mt-1 text-sm text-slate-400">Результаты матчей, доступные в импорте MyChamp · {league.matches.length}</p></div><select value={round} onChange={(e)=>setRound(e.target.value)} className="rounded-xl border border-white/10 bg-[#0b1210] px-3 py-2 text-sm text-slate-200 outline-none"><option value="all">Все загруженные туры</option>{rounds.map((n)=><option key={n} value={String(n)}>{n}-й тур</option>)}</select></div>
     <div className="mt-6 grid gap-3 md:grid-cols-2">{shown.map((match,i)=><MatchCard key={i} match={match}/>)}</div>
-    <p className="mt-5 text-xs text-slate-500">В архиве этого импорта пока доступны туры: {rounds.join(", ")}. Пропущенные туры не заполняются предположительными результатами.</p>
+    <p className="mt-5 text-xs text-slate-500">Показаны только результаты, которые удалось подтвердить по публичному источнику. Неопубликованные результаты не подставляются автоматически.</p>
   </section>;
 }
 
 function MatchCard({ match }: { match: typeof mplLeague.matches[number] }) {
-  return <div className="rounded-xl border border-white/10 bg-white/[.025] p-4"><div className="mb-3 flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-500"><span>{match.date}</span><span>{match.round}-й тур</span></div><div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-sm"><b className="leading-5">{match.home}</b><span className="rounded-lg bg-black/30 px-3 py-2 text-base font-black tabular-nums text-emerald-300">{match.homeScore} : {match.awayScore}</span><b className="text-right leading-5">{match.away}</b></div></div>;
+  return <div className="rounded-xl border border-white/10 bg-white/[.025] p-4"><div className="mb-3 flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-500"><span>{match.date}</span><span>{match.round}-й тур</span></div><div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-sm"><span className="flex items-center gap-2"><ImageBadge src={teamLogos[match.home]} name={match.home} size={30}/><b className="leading-5">{match.home}</b></span><span className="rounded-lg bg-black/30 px-3 py-2 text-base font-black tabular-nums text-emerald-300">{match.homeScore} : {match.awayScore}</span><span className="flex items-center justify-end gap-2"><b className="text-right leading-5">{match.away}</b><ImageBadge src={teamLogos[match.away]} name={match.away} size={30}/></span></div></div>;
 }
 
 function PlayersPanel({ league }: { league: typeof mplLeague }) {
@@ -185,5 +211,5 @@ function PlayersPanel({ league }: { league: typeof mplLeague }) {
 function TeamsPanel({ league }: { league: typeof mplLeague }) {
   const [query, setQuery] = useState("");
   const filtered = league.teams.filter((t) => t.name.toLowerCase().includes(query.toLowerCase()));
-  return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><h2 className="text-2xl font-black">Команды лиги</h2><p className="mb-5 mt-1 text-sm text-slate-400">Все участники сезона {league.season}</p><label className="mb-5 flex max-w-md items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-3 py-2"><Search size={17} className="text-slate-500"/><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Найти команду..." className="w-full bg-transparent text-sm outline-none"/></label><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((t)=><div key={t.name} className="rounded-xl border border-white/10 bg-white/[.025] p-4"><div className="flex items-center justify-between gap-2"><b className="text-sm">{t.name}</b><Shield size={17} className="text-emerald-300"/></div><div className="mt-3 flex items-center justify-between text-xs text-slate-500"><span>{t.played} игр · {t.wins}В {t.draws}Н {t.losses}П</span><b className="text-base text-emerald-300">{t.points} очк.</b></div><div className="mt-2 text-xs text-slate-500">Мячи: {t.goalsFor}:{t.goalsAgainst}</div></div>)}</div></section>;
+  return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><h2 className="text-2xl font-black">Команды лиги</h2><p className="mb-5 mt-1 text-sm text-slate-400">Все участники сезона {league.season}</p><label className="mb-5 flex max-w-md items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-3 py-2"><Search size={17} className="text-slate-500"/><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Найти команду..." className="w-full bg-transparent text-sm outline-none"/></label><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((t)=><div key={t.name} className="rounded-xl border border-white/10 bg-white/[.025] p-4"><div className="flex items-center gap-3"><ImageBadge src={teamLogos[t.name]} name={t.name} size={46}/><b className="text-sm">{t.name}</b></div><div className="mt-3 flex items-center justify-between text-xs text-slate-500"><span>{t.played} игр · {t.wins}В {t.draws}Н {t.losses}П</span><b className="text-base text-emerald-300">{t.points} очк.</b></div><div className="mt-2 text-xs text-slate-500">Мячи: {t.goalsFor}:{t.goalsAgainst}</div></div>)}</div></section>;
 }
