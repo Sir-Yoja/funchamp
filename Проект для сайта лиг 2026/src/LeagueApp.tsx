@@ -29,10 +29,12 @@ const teamLogos: Record<string, string> = {
 };
 
 function ImageBadge({ src, name, size = 38 }: { src?: string; name: string; size?: number }) {
-  const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const proxySrc = src ? `https://images.weserv.nl/?url=${encodeURIComponent(src)}` : undefined;
+  const imageSrc = attempt === 0 ? src : attempt === 1 ? proxySrc : undefined;
   return <span style={{ width: size, height: size }} className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[.06]">
-    {src && !failed
-      ? <img src={src} alt={name} loading="lazy" decoding="async" className="h-full w-full object-contain p-1" onError={() => setFailed(true)}/>
+    {imageSrc
+      ? <img src={imageSrc} alt={name} loading="lazy" decoding="async" className="h-full w-full object-contain p-1" onError={() => setAttempt((value) => value + 1)}/>
       : <span className="text-[10px] font-black text-emerald-200">{name.split(/\s+/).slice(0,2).map(x => x[0]).join("").slice(0,3).toUpperCase()}</span>}
   </span>;
 }
