@@ -1,0 +1,41 @@
+name: Deploy league site to GitHub Pages
+on:
+  push:
+    branches: [main, deploy/mpl-league-site]
+    paths:
+      - "Проект для сайта лиг 2026/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: "Проект для сайта лиг 2026/package-lock.json"
+      - run: npm ci
+        working-directory: "Проект для сайта лиг 2026"
+      - run: npm run build
+        working-directory: "Проект для сайта лиг 2026"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "Проект для сайта лиг 2026/dist"
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
