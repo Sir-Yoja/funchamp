@@ -224,6 +224,13 @@ export const mplLeague = {
     {round:9,date:"31 октября 2026",home:"ФК Ракета",away:"ФК Старые Дрожжи",homeScore:null,awayScore:null},
     {round:9,date:"31 октября 2026",home:"ФК Душевой Флирт",away:"ФК Клещи",homeScore:null,awayScore:null},
     {round:6,date:"3 октября 2026",home:"ФК Вечер Пятницы",away:"Fc King is Dead",homeScore:5,awayScore:3},
+
+    {round:6,date:"3 октября 2026",home:"Beamish FC",away:"Тасманские Дьяволы",homeScore:4,awayScore:2},
+    {round:6,date:"3 октября 2026",home:"ФК Старые Дрожжи",away:"ФК Други",homeScore:2,awayScore:1},
+    {round:6,date:"3 октября 2026",home:"Bedros Pilibos",away:"ФК Душевой Флирт",homeScore:0,awayScore:5},
+    {round:6,date:"3 октября 2026",home:"ФК Черные но Синие",away:"ЛФК Балдёж",homeScore:0,awayScore:5},
+    {round:6,date:"3 октября 2026",home:"ФК Петруч",away:"ФК Клещи",homeScore:10,awayScore:1},
+    {round:6,date:"3 октября 2026",home:"ФК ЩИТ",away:"ФК Ракета",homeScore:3,awayScore:1}
     {round:10,date:"7 ноября 2026",home:"ФК Черные но Синие",away:"ФК Други",homeScore:null,awayScore:null},
     {round:10,date:"7 ноября 2026",home:"ЛФК Балдёж",away:"ФК Душевой Флирт",homeScore:null,awayScore:null},
     {round:10,date:"7 ноября 2026",home:"Тасманские Дьяволы",away:"Fc King is Dead",homeScore:null,awayScore:null},
@@ -252,12 +259,6 @@ export const mplLeague = {
     {round:13,date:"28 ноября 2026",home:"Beamish FC",away:"ФК Черные но Синие",homeScore:null,awayScore:null},
     {round:13,date:"28 ноября 2026",home:"ФК Други",away:"Bedros Pilibos",homeScore:null,awayScore:null},
     {round:13,date:"28 ноября 2026",home:"Тасманские Дьяволы",away:"ФК Клещи",homeScore:null,awayScore:null},
-    {round:6,date:"3 октября 2026",home:"Beamish FC",away:"Тасманские Дьяволы",homeScore:4,awayScore:2},
-    {round:6,date:"3 октября 2026",home:"ФК Старые Дрожжи",away:"ФК Други",homeScore:2,awayScore:1},
-    {round:6,date:"3 октября 2026",home:"Bedros Pilibos",away:"ФК Душевой Флирт",homeScore:0,awayScore:5},
-    {round:6,date:"3 октября 2026",home:"ФК Черные но Синие",away:"ЛФК Балдёж",homeScore:0,awayScore:5},
-    {round:6,date:"3 октября 2026",home:"ФК Петруч",away:"ФК Клещи",homeScore:10,awayScore:1},
-    {round:6,date:"3 октября 2026",home:"ФК ЩИТ",away:"ФК Ракета",homeScore:3,awayScore:1}
   ] satisfies MatchRow[],
   scorers: [
     {name:"Черных Андрей",team:"ФК Вечер Пятницы",goals:5,assists:1,appearances:5},
