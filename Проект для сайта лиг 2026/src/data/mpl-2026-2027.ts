@@ -23,22 +23,149 @@ export const mplLeague = {
   season: "2026 / 2027",
   seasonLabel: "август 2026 — июль 2027",
   seasonNumber: 16,
+  logo: "https://mychamp.ru/system/championships/202/large.jpg",
   teams: [
-    {name:"ФК Вечер Пятницы",points:16,played:6,wins:5,draws:1,losses:0,goalsFor:22,goalsAgainst:7},
-    {name:"ФК Старые Дрожжи",points:16,played:6,wins:5,draws:1,losses:0,goalsFor:15,goalsAgainst:2},
-    {name:"ФК Петруч",points:14,played:6,wins:4,draws:2,losses:0,goalsFor:23,goalsAgainst:6},
-    {name:"ЛФК Балдёж",points:13,played:6,wins:4,draws:1,losses:1,goalsFor:16,goalsAgainst:7},
-    {name:"ФК Душевой Флирт",points:10,played:6,wins:3,draws:1,losses:2,goalsFor:14,goalsAgainst:8},
-    {name:"Beamish FC",points:9,played:6,wins:3,draws:0,losses:3,goalsFor:17,goalsAgainst:15},
-    {name:"ФК Ракета",points:8,played:6,wins:2,draws:2,losses:2,goalsFor:15,goalsAgainst:13},
-    {name:"ФК Други",points:8,played:6,wins:2,draws:2,losses:2,goalsFor:6,goalsAgainst:5},
-    {name:"ФК Черные но Синие",points:6,played:6,wins:2,draws:0,losses:4,goalsFor:9,goalsAgainst:22},
-    {name:"Тасманские Дьяволы",points:5,played:6,wins:1,draws:2,losses:3,goalsFor:8,goalsAgainst:14},
-    {name:"ФК ЩИТ",points:4,played:6,wins:1,draws:1,losses:4,goalsFor:6,goalsAgainst:14},
-    {name:"Fc King is Dead",points:4,played:6,wins:1,draws:1,losses:4,goalsFor:9,goalsAgainst:20},
-    {name:"Bedros Pilibos",points:3,played:6,wins:1,draws:0,losses:5,goalsFor:3,goalsAgainst:15},
-    {name:"ФК Клещи",points:2,played:6,wins:0,draws:2,losses:4,goalsFor:4,goalsAgainst:19}
-  ] satisfies TeamRow[],
+  {
+    "name": "ФК Петруч",
+    "points": 17,
+    "played": 7,
+    "wins": 5,
+    "draws": 2,
+    "losses": 0,
+    "goalsFor": 26,
+    "goalsAgainst": 7
+  },
+  {
+    "name": "ФК Старые Дрожжи",
+    "points": 17,
+    "played": 7,
+    "wins": 5,
+    "draws": 2,
+    "losses": 0,
+    "goalsFor": 17,
+    "goalsAgainst": 4
+  },
+  {
+    "name": "ЛФК Балдёж",
+    "points": 16,
+    "played": 7,
+    "wins": 5,
+    "draws": 1,
+    "losses": 1,
+    "goalsFor": 20,
+    "goalsAgainst": 7
+  },
+  {
+    "name": "ФК Вечер Пятницы",
+    "points": 16,
+    "played": 7,
+    "wins": 5,
+    "draws": 1,
+    "losses": 1,
+    "goalsFor": 22,
+    "goalsAgainst": 11
+  },
+  {
+    "name": "ФК Ракета",
+    "points": 11,
+    "played": 7,
+    "wins": 3,
+    "draws": 2,
+    "losses": 2,
+    "goalsFor": 19,
+    "goalsAgainst": 13
+  },
+  {
+    "name": "ФК Душевой Флирт",
+    "points": 11,
+    "played": 7,
+    "wins": 3,
+    "draws": 2,
+    "losses": 2,
+    "goalsFor": 16,
+    "goalsAgainst": 10
+  },
+  {
+    "name": "Beamish FC",
+    "points": 10,
+    "played": 7,
+    "wins": 3,
+    "draws": 1,
+    "losses": 3,
+    "goalsFor": 18,
+    "goalsAgainst": 16
+  },
+  {
+    "name": "ФК Други",
+    "points": 9,
+    "played": 7,
+    "wins": 2,
+    "draws": 3,
+    "losses": 2,
+    "goalsFor": 7,
+    "goalsAgainst": 6
+  },
+  {
+    "name": "Fc King is Dead",
+    "points": 7,
+    "played": 7,
+    "wins": 2,
+    "draws": 1,
+    "losses": 4,
+    "goalsFor": 12,
+    "goalsAgainst": 20
+  },
+  {
+    "name": "ФК Черные но Синие",
+    "points": 6,
+    "played": 7,
+    "wins": 2,
+    "draws": 0,
+    "losses": 5,
+    "goalsFor": 10,
+    "goalsAgainst": 25
+  },
+  {
+    "name": "Bedros Pilibos",
+    "points": 6,
+    "played": 7,
+    "wins": 2,
+    "draws": 0,
+    "losses": 5,
+    "goalsFor": 5,
+    "goalsAgainst": 16
+  },
+  {
+    "name": "Тасманские Дьяволы",
+    "points": 5,
+    "played": 7,
+    "wins": 1,
+    "draws": 2,
+    "losses": 4,
+    "goalsFor": 8,
+    "goalsAgainst": 18
+  },
+  {
+    "name": "ФК ЩИТ",
+    "points": 4,
+    "played": 7,
+    "wins": 1,
+    "draws": 1,
+    "losses": 5,
+    "goalsFor": 6,
+    "goalsAgainst": 17
+  },
+  {
+    "name": "ФК Клещи",
+    "points": 2,
+    "played": 7,
+    "wins": 0,
+    "draws": 2,
+    "losses": 5,
+    "goalsFor": 5,
+    "goalsAgainst": 21
+  }
+] satisfies TeamRow[],
   matches: [
     {round:1,date:"29 августа 2026",home:"ЛФК Балдёж",away:"Bedros Pilibos",homeScore:1,awayScore:3},
     {round:1,date:"29 августа 2026",home:"ФК Други",away:"ФК Душевой Флирт",homeScore:1,awayScore:0},
@@ -107,5 +234,5 @@ export const mplLeague = {
     statistics: "https://mychamp.ru/championships/202/statistic",
     standings: "https://mychamp.ru/championships/202/show_table"
   },
-  dataNote: "Снимок публичных данных MyChamp. В загруженном архиве пока есть результаты 1–3 и 6-го туров; 4-й и 5-й туры требуют дополнительной сверки. Статистика игроков показана по доступной таблице MyChamp и может иметь другую дату обновления, чем таблица команд."
+  dataNote: "Публичный снимок MyChamp: таблица отражает 7 сыгранных матчей. Индивидуальная статистика и матчевый архив могут иметь отдельные даты обновления; непроверенные результаты не подставляются."
 } as const;
