@@ -138,7 +138,7 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
       <div className="absolute -right-10 -top-16 h-64 w-64 rounded-full border-[32px] border-emerald-300/5"/>
       <div className="relative">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-black/20 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-200">Лига · сезон {league.season}</div>
-        <div className="mb-4 flex items-center gap-4"><ImageBadge src={leagueLogo} name={league.name} size={76}/><h1 className="text-3xl font-black leading-tight md:text-5xl">{league.name}</h1></div>
+        <div className="mb-4 flex items-center gap-4"><ImageBadge src={league.logo} name={league.name} size={76}/><h1 className="text-3xl font-black leading-tight md:text-5xl">{league.name}</h1></div>
         <p className="mt-3 max-w-2xl text-sm text-slate-300 md:text-base">{league.description} · сезон №{league.seasonNumber}</p>
         <div className="mt-5 flex flex-wrap gap-3 text-sm text-slate-200"><span className="rounded-xl bg-black/20 px-4 py-2"><MapPin className="mr-2 inline" size={16}/>{league.city} · {league.stadium}</span><span className="rounded-xl bg-black/20 px-4 py-2"><Users className="mr-2 inline" size={16}/>{league.teams.length} команд</span></div>
       </div>
