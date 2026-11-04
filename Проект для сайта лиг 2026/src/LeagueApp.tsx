@@ -11,7 +11,6 @@ type LeagueTab = "overview" | "table" | "matches" | "players" | "teams";
 type Page = "home" | "leagues" | "league";
 
 const leagues = [mplLeague];
-const leagueLogo = "https://mychamp.ru/system/championships/202/large.jpg";
 const teamLogos: Record<string, string> = {
   "ФК Вечер Пятницы": "https://mychamp.ru/system/clubs/5326/mini.jpg",
   "Тасманские Дьяволы": "https://mychamp.ru/system/clubs/14120/mini.jpg",
