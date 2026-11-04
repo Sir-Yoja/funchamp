@@ -6,8 +6,10 @@ import {
 } from "lucide-react";
 import { mplLeague } from "./data/mpl-2026-2027";
 import { mplScorers, mplGoalkeepers, mplCards } from "./data/mpl-players";
+import { CalendarPanel, ChessboardPanel, MatchDetails } from "./ChampionshipViews";
 
-type LeagueTab = "overview" | "table" | "matches" | "players" | "teams";
+
+type LeagueTab = "overview" | "table" | "matrix" | "calendar" | "matches" | "players" | "teams";
 type Page = "home" | "leagues" | "league";
 
 const leagues = [mplLeague];
@@ -65,6 +67,8 @@ export default function App() {
   const leagueNav: { id: LeagueTab; label: string; icon: React.ElementType }[] = [
     { id: "overview", label: "Обзор", icon: ChartNoAxesCombined },
     { id: "table", label: "Таблица", icon: Table2 },
+    { id: "matrix", label: "Шахматка", icon: Table2 },
+    { id: "calendar", label: "Календарь", icon: CalendarDays },
     { id: "matches", label: "Матчи", icon: CalendarDays },
     { id: "players", label: "Игроки", icon: Users },
     { id: "teams", label: "Команды", icon: Shield },
@@ -133,6 +137,8 @@ function LeagueCard({ league, onClick }: { league: typeof mplLeague; onClick: ()
 }
 
 function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLeague; tab: LeagueTab; setTab: (tab: LeagueTab) => void; onBack: () => void; nav: {id:LeagueTab;label:string;icon:React.ElementType}[] }) {
+  const [selectedMatch, setSelectedMatch] = useState<typeof mplLeague.matches[number] | null>(null);
+  const openMatch = (match: typeof mplLeague.matches[number]) => setSelectedMatch(match);
   return <main className="mx-auto max-w-7xl px-4 py-7 lg:px-8 lg:py-10">
     <button onClick={onBack} className="mb-5 inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-[#1d3557]"><ArrowLeft size={16}/>Все лиги</button>
     <section className="relative overflow-hidden rounded-[2rem] border border-blue-200 bg-gradient-to-br from-[#dceaff] via-[#eaf2ff] to-[#e8f1ff] p-6 md:p-10">
@@ -144,11 +150,14 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
         <div className="mt-5 flex flex-wrap gap-3 text-sm text-slate-600"><span className="rounded-xl bg-white/65 px-4 py-2"><MapPin className="mr-2 inline" size={16}/>{league.city} · {league.stadium}</span><span className="rounded-xl bg-white/65 px-4 py-2"><Users className="mr-2 inline" size={16}/>{league.teams.length} команд</span></div>
       </div>
     </section>
-    <nav className="mt-6 flex gap-2 overflow-x-auto pb-1">{nav.map((item) => <button key={item.id} onClick={() => setTab(item.id)} className={`inline-flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${tab === item.id ? "bg-[#b8d2f5] text-[#183153]" : "border border-[#d7e4f5] bg-white text-slate-600 hover:bg-blue-100"}`}><item.icon size={16}/>{item.label}</button>)}</nav>
-    {tab === "overview" && <LeagueOverview league={league} setTab={setTab}/>}
-    {tab === "table" && <StandingsTable league={league}/>}
-    {tab === "matches" && <MatchesPanel league={league}/>}
-    {tab === "players" && <PlayersPanel league={league}/>}
+    <nav className="mt-6 flex gap-2 overflow-x-auto pb-1">{nav.map((item) => <button key={item.id} onClick={() => { setSelectedMatch(null); setTab(item.id); }} className={`inline-flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${tab === item.id ? "bg-[#b8d2f5] text-[#183153]" : "border border-[#d7e4f5] bg-white text-slate-600 hover:bg-blue-100"}`}><item.icon size={16}/>{item.label}</button>)}</nav>
+    {selectedMatch && <MatchDetails league={league} match={selectedMatch} teamLogos={teamLogos} onBack={() => setSelectedMatch(null)}/>}
+    {!selectedMatch && tab === "overview" && <LeagueOverview league={league} setTab={setTab} onSelectMatch={openMatch}/>}
+    {!selectedMatch && tab === "table" && <StandingsTable league={league}/>}
+    {!selectedMatch && tab === "matrix" && <ChessboardPanel league={league} teamLogos={teamLogos} onSelectMatch={openMatch}/>}
+    {!selectedMatch && tab === "calendar" && <CalendarPanel league={league} teamLogos={teamLogos} onSelectMatch={openMatch}/>}
+    {!selectedMatch && tab === "matches" && <MatchesPanel league={league} onSelectMatch={openMatch}/>}
+    {!selectedMatch && tab === "players" && <PlayersPanel league={league}/>}
     {tab === "teams" && <TeamsPanel league={league}/>}
     <section className="mt-8 rounded-2xl border border-[#d7e4f5] bg-[#f5f9ff] p-5">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"><div><b className="text-sm">Источники данных</b><p className="mt-1 text-xs leading-5 text-slate-500">Источник: MyChamp. Снимок публичных данных; дата последнего обновления источника не указана.</p></div><div className="flex flex-wrap gap-3 text-sm font-bold text-[#5b86c5]"><a href={league.source.matches} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Матчи <ExternalLink size={13}/></a><a href={league.source.statistics} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Статистика <ExternalLink size={13}/></a><a href={league.source.standings} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">Таблица источника <ExternalLink size={13}/></a><a href={league.source.main} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1">MyChamp <ExternalLink size={13}/></a></div></div>
@@ -157,7 +166,7 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
   </main>;
 }
 
-function LeagueOverview({ league, setTab }: { league: typeof mplLeague; setTab: (tab: LeagueTab) => void }) {
+function LeagueOverview({ league, setTab, onSelectMatch }: { league: typeof mplLeague; setTab: (tab: LeagueTab) => void; onSelectMatch: (match: typeof mplLeague.matches[number]) => void }) {
   const leaders = mplScorers.slice(0,5);
   const completed = league.matches.filter((m) => m.homeScore !== null && m.awayScore !== null);
   const latestRound = Math.max(...completed.map((m) => m.round));
@@ -168,7 +177,7 @@ function LeagueOverview({ league, setTab }: { league: typeof mplLeague; setTab: 
       <section className="rounded-2xl border border-[#d7e4f5] bg-white p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Турнирная таблица</h2><button onClick={() => setTab("table")} className="text-sm font-bold text-[#5b86c5]">Вся таблица →</button></div><StandingsRows league={league} rows={league.teams.slice(0,5)}/></section>
       <section className="rounded-2xl border border-[#d7e4f5] bg-white p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Бомбардиры</h2><button onClick={() => setTab("players")} className="text-sm font-bold text-[#5b86c5]">Вся статистика →</button></div><div className="space-y-3">{leaders.map((p,i) => <div key={p.name} className="flex items-center gap-3"><span className="w-5 text-xs font-bold text-slate-500">{i+1}</span><div className="min-w-0 flex-1"><b className="block truncate text-sm">{p.name}</b><span className="block truncate text-xs text-slate-500">{p.team}</span></div><b className="text-lg text-[#5b86c5]">{p.goals}</b></div>)}</div></section>
     </div>
-    <section className="mt-5 rounded-2xl border border-[#d7e4f5] bg-white p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Результаты {latestRound}-го тура</h2><button onClick={() => setTab("matches")} className="text-sm font-bold text-[#5b86c5]">Все загруженные матчи →</button></div><div className="grid gap-3 md:grid-cols-2">{recent.map((m,i) => <MatchCard key={i} match={m}/>)}</div></section>
+    <section className="mt-5 rounded-2xl border border-[#d7e4f5] bg-white p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Результаты {latestRound}-го тура</h2><button onClick={() => setTab("matches")} className="text-sm font-bold text-[#5b86c5]">Все загруженные матчи →</button></div><div className="grid gap-3 md:grid-cols-2">{recent.map((m,i) => <MatchCard key={i} match={m} onSelect={onSelectMatch}/>)}</div></section>
   </div>;
 }
 
@@ -180,21 +189,22 @@ function StandingsRows({ league, rows }: { league: typeof mplLeague; rows: reado
   return <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-left text-sm"><thead className="border-b border-[#d7e4f5] text-[11px] uppercase tracking-wider text-slate-500"><tr>{["М","Команда","И","В","Н","П","ГЗ","ГП","+/-","О"].map((h,i)=><th key={h} className={`px-3 py-3 ${i>1?"text-center":""}`}>{h}</th>)}</tr></thead><tbody>{rows.map((team) => {const rank = league.teams.findIndex((t) => t.name === team.name)+1; return <tr key={team.name} className={`border-b border-[#e5edf8] last:border-0 ${team.name === "Beamish FC" ? "bg-blue-100" : ""}`}><td className="px-3 py-3 font-bold text-slate-500">{rank}</td><td className="px-3 py-3"><span className="flex items-center gap-3 font-bold"><ImageBadge src={teamLogos[team.name]} name={team.name} size={34}/>{team.name}</span></td><td className="px-3 py-3 text-center">{team.played}</td><td className="px-3 py-3 text-center">{team.wins}</td><td className="px-3 py-3 text-center">{team.draws}</td><td className="px-3 py-3 text-center">{team.losses}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsFor}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsAgainst}</td><td className="px-3 py-3 text-center tabular-nums">{team.goalsFor-team.goalsAgainst>0?"+":""}{team.goalsFor-team.goalsAgainst}</td><td className="px-3 py-3 text-center font-black text-[#5b86c5]">{team.points}</td></tr>;})}</tbody></table></div>;
 }
 
-function MatchesPanel({ league }: { league: typeof mplLeague }) {
+function MatchesPanel({ league, onSelectMatch }: { league: typeof mplLeague; onSelectMatch: (match: typeof mplLeague.matches[number]) => void }) {
   const expectedMatches = Math.round(league.teams.reduce((sum, team) => sum + team.played, 0) / 2);
   const missingMatches = Math.max(0, expectedMatches - league.matches.length);
   const [round, setRound] = useState("all");
   const rounds = Array.from(new Set(league.matches.map((m) => m.round))).sort((a,b)=>a-b);
-  const shown = round === "all" ? league.matches : league.matches.filter((m) => String(m.round) === round);
-  return <section className="mt-7 rounded-2xl border border-[#d7e4f5] bg-white p-5 md:p-7"><div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Матчи и результаты</h2><p className="mt-1 text-sm text-slate-500">В календаре {league.matches.length} матчей · с подтверждённым счётом {league.matches.filter((m) => m.homeScore !== null && m.awayScore !== null).length}</p></div><select value={round} onChange={(e)=>setRound(e.target.value)} className="rounded-xl border border-[#d7e4f5] bg-[#f3f7ff] px-3 py-2 text-sm text-slate-600 outline-none"><option value="all">Все загруженные туры</option>{rounds.map((n)=><option key={n} value={String(n)}>{n}-й тур</option>)}</select></div>
-    <div className="mt-6 grid gap-3 md:grid-cols-2">{shown.map((match,i)=><MatchCard key={i} match={match}/>)}</div>
+  const shown = (round === "all" ? league.matches : league.matches.filter((m) => String(m.round) === round)).slice().sort((a,b) => a.round-b.round);
+  return <section className="mt-7 rounded-2xl border border-[#d7e4f5] bg-white p-5 md:p-7"><div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Матчи и результаты</h2><p className="mt-1 text-sm text-slate-500">В календаре {league.matches.length} матчей · с подтверждённым счётом {league.matches.filter((m) => m.homeScore !== null && m.awayScore !== null).length}</p></div><select value={round} onChange={(e)=>setRound(e.target.value)} className="rounded-xl border border-[#d7e4f5] bg-[#f3f7ff] px-3 py-2 text-sm text-slate-600 outline-none"><option value="all">Все туры ({rounds.length})</option>{rounds.map((n)=><option key={n} value={String(n)}>{n}-й тур</option>)}</select></div>
+    <div className="mt-6 grid gap-3 md:grid-cols-2">{shown.map((match,i)=><MatchCard key={`${match.round}-${match.home}-${match.away}`} match={match} onSelect={onSelectMatch}/>)}</div>
     {missingMatches > 0 && <div className="mt-5 rounded-xl border border-amber-400/20 bg-amber-400/[.06] p-4 text-sm text-amber-800"><b>Архив матчей неполный.</b> Не хватает {missingMatches} результатов относительно числа сыгранных игр в таблице. Я не подставляю выдуманные счета; для завершения импорта нужна сверка с дополнительным источником.</div>}
     <p className="mt-3 text-xs text-slate-500">Показаны только результаты, подтверждённые в текущем наборе данных.</p>
   </section>;
 }
 
-function MatchCard({ match }: { match: typeof mplLeague.matches[number] }) {
-  return <div className="rounded-xl border border-[#d7e4f5] bg-[#f8fbff] p-4"><div className="mb-3 flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-500"><span>{match.date}</span><span>{match.round}-й тур</span></div><div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-sm"><span className="flex items-center gap-2"><ImageBadge src={teamLogos[match.home]} name={match.home} size={30}/><b className="leading-5">{match.home}</b></span><span className="rounded-lg bg-blue-50 px-3 py-2 text-base font-black tabular-nums text-[#5b86c5]">{match.homeScore === null || match.awayScore === null ? "— : —" : `${match.homeScore} : ${match.awayScore}`}</span><span className="flex items-center justify-end gap-2"><b className="text-right leading-5">{match.away}</b><ImageBadge src={teamLogos[match.away]} name={match.away} size={30}/></span></div></div>;
+function MatchCard({ match, onSelect }: { match: typeof mplLeague.matches[number]; onSelect?: (match: typeof mplLeague.matches[number]) => void }) {
+  const completed = match.homeScore !== null && match.awayScore !== null;
+  return <button type="button" onClick={() => onSelect?.(match)} className="w-full rounded-xl border border-[#d7e4f5] bg-[#f8fbff] p-4 text-left transition hover:border-[#83aee8] hover:bg-[#f0f6ff]"><div className="mb-3 flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-500"><span>{match.date} · {match.round}-й тур</span><span className="rounded-full bg-blue-100 px-2 py-1 normal-case tracking-normal text-[#426b9f]">{completed ? "Завершён" : "Нет результата"}</span></div><div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-sm"><span className="flex items-center gap-2"><ImageBadge src={teamLogos[match.home]} name={match.home} size={30}/><b className="leading-5">{match.home}</b></span><span className="rounded-lg bg-blue-50 px-3 py-2 text-base font-black tabular-nums text-[#5b86c5]">{completed ? `${match.homeScore} : ${match.awayScore}` : "— : —"}</span><span className="flex items-center justify-end gap-2"><b className="text-right leading-5">{match.away}</b><ImageBadge src={teamLogos[match.away]} name={match.away} size={30}/></span></div><div className="mt-3 text-right text-xs font-bold text-[#5b86c5]">Карточка матча →</div></button>;
 }
 
 function PlayersPanel({ league }: { league: typeof mplLeague }) {
