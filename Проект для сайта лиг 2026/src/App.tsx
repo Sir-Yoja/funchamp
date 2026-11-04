@@ -204,7 +204,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="text-center text-xs text-gray-700 pt-8 border-t border-white/5">
-            © 2024 FunChamp. Все права защищены. Разработано для любителей футбола.
+            © 2024 FanChamp. Все права защищены. Разработано для любителей футбола.
           </div>
         </div>
       </footer>
