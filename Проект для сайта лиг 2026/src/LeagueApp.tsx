@@ -34,7 +34,7 @@ function ImageBadge({ src, name, size = 38 }: { src?: string; name: string; size
   return <span style={{ width: size, height: size }} className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[.06]">
     {src && !failed
       ? <img src={src} alt={name} className="h-full w-full object-contain p-1" onError={() => setFailed(true)}/>
-      : <span className="text-[10px] font-black text-emerald-200">{name.split(/\\s+/).slice(0,2).map(x => x[0]).join("").slice(0,3).toUpperCase()}</span>}
+      : <span className="text-[10px] font-black text-emerald-200">{name.split(/\s+/).slice(0,2).map(x => x[0]).join("").slice(0,3).toUpperCase()}</span>}
   </span>;
 }
 
@@ -129,10 +129,6 @@ function LeagueCard({ league, onClick }: { league: typeof mplLeague; onClick: ()
     <div className="mt-5 flex flex-wrap gap-3 text-xs text-slate-400"><span className="inline-flex items-center gap-1"><MapPin size={14}/>{league.city}</span><span className="inline-flex items-center gap-1"><Users size={14}/>{league.teams.length} команд</span></div>
     <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-sm font-bold text-emerald-300"><span>Открыть лигу</span><ChevronRight size={18} className="transition group-hover:translate-x-1"/></div>
   </button>;
-}
-
-function Feature({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
-  return <div className="rounded-2xl border border-white/10 bg-[#121a18] p-5"><div className="mb-4 text-emerald-300">{icon}</div><h3 className="font-extrabold">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{text}</p></div>;
 }
 
 function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLeague; tab: LeagueTab; setTab: (tab: LeagueTab) => void; onBack: () => void; nav: {id:LeagueTab;label:string;icon:React.ElementType}[] }) {
