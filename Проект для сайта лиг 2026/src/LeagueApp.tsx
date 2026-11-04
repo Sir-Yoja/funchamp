@@ -58,7 +58,7 @@ export default function App() {
         {mobileMenu && <div className="grid gap-1 border-t border-white/10 p-3 md:hidden">{platformNav.map((item) => <button key={item.id} onClick={() => { item.id === "home" ? goHome() : setPage("leagues"); setMobileMenu(false); }} className="flex items-center gap-3 rounded-lg px-3 py-3 text-left text-sm"><item.icon size={18}/>{item.label}</button>)}</div>}
       </header>
 
-      {page === "home" && <PlatformHome onBrowse={() => setPage("leagues")} onOpenLeague={openLeague}/>}
+      {page === "home" && <PlatformHome onBrowse={() => setPage("leagues")}/>}
       {page === "leagues" && <LeagueDirectory onOpenLeague={openLeague}/>}
       {page === "league" && activeLeague && (
         <LeaguePage league={activeLeague} tab={leagueTab} setTab={setLeagueTab} onBack={() => setPage("leagues")} nav={leagueNav}/>
@@ -71,33 +71,20 @@ export default function App() {
   );
 }
 
-function PlatformHome({ onBrowse, onOpenLeague }: { onBrowse: () => void; onOpenLeague: (id: string) => void }) {
-  return <main className="mx-auto max-w-7xl px-4 py-8 lg:px-8 lg:py-12">
-    <section className="relative overflow-hidden rounded-[2rem] border border-emerald-300/15 bg-gradient-to-br from-[#123b2b] via-[#10251f] to-[#111917] p-7 md:p-14">
+function PlatformHome({ onBrowse }: { onBrowse: () => void }) {
+  return <main className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center px-4 py-12 lg:px-8">
+    <section className="relative w-full max-w-4xl overflow-hidden rounded-[2rem] border border-emerald-300/15 bg-gradient-to-br from-[#123b2b] via-[#10251f] to-[#111917] px-7 py-16 text-center md:px-14 md:py-24">
       <div className="absolute -right-12 -top-16 h-80 w-80 rounded-full border-[42px] border-emerald-300/5"/>
-      <div className="absolute -bottom-28 right-40 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl"/>
-      <div className="relative max-w-3xl">
+      <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl"/>
+      <div className="relative mx-auto max-w-2xl">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-black/20 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-200"><span className="h-2 w-2 rounded-full bg-emerald-400"/>Футбольная экосистема</div>
-        <h1 className="text-4xl font-black leading-tight md:text-6xl">Все футбольные лиги.<br/><span className="text-emerald-300">Одна платформа.</span></h1>
-        <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300 md:text-lg">LigaHub объединяет независимые турниры, команды и игроков. Следи за результатами, таблицами и статистикой в одном месте.</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <button onClick={onBrowse} className="rounded-xl bg-emerald-400 px-5 py-3 text-sm font-extrabold text-[#07110c] hover:bg-emerald-300">Выбрать лигу <ChevronRight className="ml-1 inline" size={17}/></button>
-          <span className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-slate-200">Одна платформа · разные турниры</span>
-        </div>
+        <h1 className="text-4xl font-black leading-tight md:text-6xl">Liga<span className="text-emerald-300">Hub</span></h1>
+        <p className="mt-5 text-sm leading-7 text-slate-300 md:text-lg">Единая платформа независимых футбольных лиг, команд и игроков.</p>
+        <button onClick={onBrowse} className="mt-9 rounded-xl bg-emerald-400 px-8 py-4 text-base font-extrabold text-[#07110c] transition hover:bg-emerald-300">Войти в раздел лиг <ChevronRight className="ml-1 inline" size={19}/></button>
       </div>
-    </section>
-    <section className="mt-10">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[.2em] text-emerald-300">Каталог</p><h2 className="mt-2 text-2xl font-black md:text-3xl">Лиги на платформе</h2><p className="mt-2 text-sm text-slate-400">Выбери турнир, чтобы открыть его отдельную страницу.</p></div><button onClick={onBrowse} className="text-sm font-bold text-emerald-300">Все лиги →</button></div>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{leagues.map((league) => <LeagueCard key={league.id} league={league} onClick={() => onOpenLeague(league.id)}/>)}</div>
-    </section>
-    <section className="mt-10 grid gap-3 sm:grid-cols-3">
-      <Feature icon={<Trophy/>} title="Отдельные лиги" text="Собственные сезоны, таблицы, регламенты и администраторы."/>
-      <Feature icon={<Users/>} title="Профили игроков" text="Статистика и история выступлений в турнирах."/>
-      <Feature icon={<ChartNoAxesCombined/>} title="Общая аналитика" text="Матчи, результаты и достижения без смешивания данных лиг."/>
     </section>
   </main>;
 }
-
 function LeagueDirectory({ onOpenLeague }: { onOpenLeague: (id: string) => void }) {
   const [query, setQuery] = useState("");
   const filtered = leagues.filter((league) => league.name.toLowerCase().includes(query.toLowerCase()) || league.city.toLowerCase().includes(query.toLowerCase()));
@@ -148,19 +135,20 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
 
 function LeagueOverview({ league, setTab }: { league: typeof mplLeague; setTab: (tab: LeagueTab) => void }) {
   const leaders = league.scorers.slice(0,5);
-  const recent = league.matches.filter((m) => m.round === 6).slice(0,4);
+  const latestRound = Math.max(...league.matches.map((m) => m.round));
+  const recent = league.matches.filter((m) => m.round === latestRound).slice(0,4);
   return <div className="mt-7">
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">{[[String(league.teams.length),"Команд"],[String(league.matches.length),"Загружено матчей"],[String(league.scorers.length),"Игроков в списке бомбардиров"],[String(league.teams[0].points),"Очков у лидера"]].map(([value,label]) => <div key={label} className="rounded-2xl border border-white/10 bg-[#121a18] p-5"><div className="text-3xl font-black text-emerald-300">{value}</div><div className="mt-1 text-xs text-slate-400">{label}</div></div>)}</div>
     <div className="mt-6 grid gap-5 lg:grid-cols-[1.15fr_.85fr]">
       <section className="rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Турнирная таблица</h2><button onClick={() => setTab("table")} className="text-sm font-bold text-emerald-300">Вся таблица →</button></div><StandingsRows league={league} rows={league.teams.slice(0,5)}/></section>
       <section className="rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Бомбардиры</h2><button onClick={() => setTab("players")} className="text-sm font-bold text-emerald-300">Вся статистика →</button></div><div className="space-y-3">{leaders.map((p,i) => <div key={p.name} className="flex items-center gap-3"><span className="w-5 text-xs font-bold text-slate-500">{i+1}</span><div className="min-w-0 flex-1"><b className="block truncate text-sm">{p.name}</b><span className="block truncate text-xs text-slate-500">{p.team}</span></div><b className="text-lg text-emerald-300">{p.goals}</b></div>)}</div></section>
     </div>
-    <section className="mt-5 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Результаты 6-го тура</h2><button onClick={() => setTab("matches")} className="text-sm font-bold text-emerald-300">Все загруженные матчи →</button></div><div className="grid gap-3 md:grid-cols-2">{recent.map((m,i) => <MatchCard key={i} match={m}/>)}</div></section>
+    <section className="mt-5 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-extrabold">Результаты {latestRound}-го тура</h2><button onClick={() => setTab("matches")} className="text-sm font-bold text-emerald-300">Все загруженные матчи →</button></div><div className="grid gap-3 md:grid-cols-2">{recent.map((m,i) => <MatchCard key={i} match={m}/>)}</div></section>
   </div>;
 }
 
 function StandingsTable({ league }: { league: typeof mplLeague }) {
-  return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><h2 className="text-2xl font-black">Турнирная таблица</h2><p className="mb-6 mt-1 text-sm text-slate-400">Снимок таблицы MyChamp · 6 сыгранных матчей</p><StandingsRows league={league} rows={league.teams}/></section>;
+  return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><h2 className="text-2xl font-black">Турнирная таблица</h2><p className="mb-6 mt-1 text-sm text-slate-400">Снимок турнирной таблицы из MyChamp</p><StandingsRows league={league} rows={league.teams}/></section>;
 }
 
 function StandingsRows({ league, rows }: { league: typeof mplLeague; rows: readonly typeof mplLeague.teams[number][] }) {
