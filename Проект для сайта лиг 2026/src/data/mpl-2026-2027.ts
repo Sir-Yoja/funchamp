@@ -230,7 +230,7 @@ export const mplLeague = {
     {round:6,date:"3 октября 2026",home:"Bedros Pilibos",away:"ФК Душевой Флирт",homeScore:0,awayScore:5},
     {round:6,date:"3 октября 2026",home:"ФК Черные но Синие",away:"ЛФК Балдёж",homeScore:0,awayScore:5},
     {round:6,date:"3 октября 2026",home:"ФК Петруч",away:"ФК Клещи",homeScore:10,awayScore:1},
-    {round:6,date:"3 октября 2026",home:"ФК ЩИТ",away:"ФК Ракета",homeScore:3,awayScore:1}
+    {round:6,date:"3 октября 2026",home:"ФК ЩИТ",away:"ФК Ракета",homeScore:3,awayScore:1},
     {round:10,date:"7 ноября 2026",home:"ФК Черные но Синие",away:"ФК Други",homeScore:null,awayScore:null},
     {round:10,date:"7 ноября 2026",home:"ЛФК Балдёж",away:"ФК Душевой Флирт",homeScore:null,awayScore:null},
     {round:10,date:"7 ноября 2026",home:"Тасманские Дьяволы",away:"Fc King is Dead",homeScore:null,awayScore:null},
