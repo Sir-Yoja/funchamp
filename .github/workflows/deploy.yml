@@ -1,7 +1,7 @@
 name: Deploy league site to GitHub Pages
 on:
   push:
-    branches: [main, deploy/mpl-league-site]
+    branches: [main]
     paths:
       - "Проект для сайта лиг 2026/**"
       - ".github/workflows/deploy.yml"
@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/setup-node@v4
         with:
           node-version: 22
