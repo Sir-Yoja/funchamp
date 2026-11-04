@@ -156,7 +156,6 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
 }
 
 function LeagueOverview({ league, setTab }: { league: typeof mplLeague; setTab: (tab: LeagueTab) => void }) {
-  const expectedMatches = Math.round(league.teams.reduce((sum, team) => sum + team.played, 0) / 2);
   const leaders = mplScorers.slice(0,5);
   const completed = league.matches.filter((m) => m.homeScore !== null && m.awayScore !== null);
   const latestRound = Math.max(...completed.map((m) => m.round));
