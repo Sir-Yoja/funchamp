@@ -4,7 +4,7 @@ export type TeamRow = {
 };
 export type MatchRow = {
   round: number; date: string; home: string; away: string;
-  homeScore: number; awayScore: number;
+  homeScore: number | null; awayScore: number | null;
 };
 export type PlayerRow = {
   name: string; team: string; goals: number; assists: number; appearances: number;
@@ -188,6 +188,41 @@ export const mplLeague = {
     {round:3,date:"12 сентября 2026",home:"Bedros Pilibos",away:"Beamish FC",homeScore:0,awayScore:3},
     {round:3,date:"12 сентября 2026",home:"ЛФК Балдёж",away:"ФК Други",homeScore:1,awayScore:0},
     {round:3,date:"12 сентября 2026",home:"ФК Вечер Пятницы",away:"ФК Старые Дрожжи",homeScore:0,awayScore:0},
+    {round:4,date:"19 сентября 2026",home:"ФК Други",away:"ФК ЩИТ",homeScore:1,awayScore:1},
+    {round:4,date:"19 сентября 2026",home:"ЛФК Балдёж",away:"Тасманские Дьяволы",homeScore:2,awayScore:2},
+    {round:4,date:"19 сентября 2026",home:"ФК Душевой Флирт",away:"Fc King is Dead",homeScore:3,awayScore:1},
+    {round:4,date:"19 сентября 2026",home:"ФК Петруч",away:"Beamish FC",homeScore:4,awayScore:1},
+    {round:4,date:"19 сентября 2026",home:"ФК Черные но Синие",away:"ФК Вечер Пятницы",homeScore:0,awayScore:8},
+    {round:4,date:"19 сентября 2026",home:"Bedros Pilibos",away:"ФК Старые Дрожжи",homeScore:0,awayScore:1},
+    {round:4,date:"19 сентября 2026",home:"ФК Клещи",away:"ФК Ракета",homeScore:1,awayScore:1},
+    {round:5,date:"26 сентября 2026",home:"ЛФК Балдёж",away:"Fc King is Dead",homeScore:4,awayScore:0},
+    {round:5,date:"26 сентября 2026",home:"Beamish FC",away:"ФК Клещи",homeScore:4,awayScore:1},
+    {round:5,date:"26 сентября 2026",home:"ФК Петруч",away:"ФК Ракета",homeScore:2,awayScore:2},
+    {round:5,date:"26 сентября 2026",home:"ФК Други",away:"Тасманские Дьяволы",homeScore:1,awayScore:1},
+    {round:5,date:"26 сентября 2026",home:"ФК ЩИТ",away:"ФК Старые Дрожжи",homeScore:1,awayScore:6},
+    {round:5,date:"26 сентября 2026",home:"ФК Вечер Пятницы",away:"Bedros Pilibos",homeScore:2,awayScore:0},
+    {round:5,date:"26 сентября 2026",home:"ФК Черные но Синие",away:"ФК Душевой Флирт",homeScore:4,awayScore:2},
+    {round:7,date:"10 октября 2026",home:"ФК Други",away:"Beamish FC",homeScore:null,awayScore:null},
+    {round:7,date:"10 октября 2026",home:"ФК Ракета",away:"Тасманские Дьяволы",homeScore:null,awayScore:null},
+    {round:7,date:"10 октября 2026",home:"ФК Клещи",away:"Bedros Pilibos",homeScore:null,awayScore:null},
+    {round:7,date:"10 октября 2026",home:"ФК ЩИТ",away:"Fc King is Dead",homeScore:null,awayScore:null},
+    {round:7,date:"10 октября 2026",home:"ФК Вечер Пятницы",away:"ЛФК Балдёж",homeScore:null,awayScore:null},
+    {round:7,date:"10 октября 2026",home:"ФК Петруч",away:"ФК Черные но Синие",homeScore:null,awayScore:null},
+    {round:7,date:"10 октября 2026",home:"ФК Старые Дрожжи",away:"ФК Душевой Флирт",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"Fc King is Dead",away:"Bedros Pilibos",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"Beamish FC",away:"ФК Душевой Флирт",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"ФК Други",away:"ФК Ракета",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"ФК Петруч",away:"ФК Старые Дрожжи",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"ФК Черные но Синие",away:"Тасманские Дьяволы",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"ФК Вечер Пятницы",away:"ФК Клещи",homeScore:null,awayScore:null},
+    {round:8,date:"24 октября 2026",home:"ФК ЩИТ",away:"ЛФК Балдёж",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"Тасманские Дьяволы",away:"Bedros Pilibos",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"ФК ЩИТ",away:"ФК Черные но Синие",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"ФК Петруч",away:"ЛФК Балдёж",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"ФК Други",away:"ФК Вечер Пятницы",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"Beamish FC",away:"Fc King is Dead",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"ФК Ракета",away:"ФК Старые Дрожжи",homeScore:null,awayScore:null},
+    {round:9,date:"31 октября 2026",home:"ФК Душевой Флирт",away:"ФК Клещи",homeScore:null,awayScore:null},
     {round:6,date:"3 октября 2026",home:"ФК Вечер Пятницы",away:"Fc King is Dead",homeScore:5,awayScore:3},
     {round:6,date:"3 октября 2026",home:"Beamish FC",away:"Тасманские Дьяволы",homeScore:4,awayScore:2},
     {round:6,date:"3 октября 2026",home:"ФК Старые Дрожжи",away:"ФК Други",homeScore:2,awayScore:1},
