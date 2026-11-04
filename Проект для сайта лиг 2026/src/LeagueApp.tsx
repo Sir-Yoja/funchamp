@@ -33,7 +33,7 @@ function ImageBadge({ src, name, size = 38 }: { src?: string; name: string; size
   const [failed, setFailed] = useState(false);
   return <span style={{ width: size, height: size }} className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[.06]">
     {src && !failed
-      ? <img src={src} alt={name} className="h-full w-full object-contain p-1" onError={() => setFailed(true)}/>
+      ? <img src={src} alt={name} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="h-full w-full object-contain p-1" onError={() => setFailed(true)}/>
       : <span className="text-[10px] font-black text-emerald-200">{name.split(/\s+/).slice(0,2).map(x => x[0]).join("").slice(0,3).toUpperCase()}</span>}
   </span>;
 }
@@ -157,6 +157,7 @@ function LeaguePage({ league, tab, setTab, onBack, nav }: { league: typeof mplLe
 }
 
 function LeagueOverview({ league, setTab }: { league: typeof mplLeague; setTab: (tab: LeagueTab) => void }) {
+  const expectedMatches = Math.round(league.teams.reduce((sum, team) => sum + team.played, 0) / 2);
   const leaders = mplScorers.slice(0,5);
   const latestRound = Math.max(...league.matches.map((m) => m.round));
   const recent = league.matches.filter((m) => m.round === latestRound).slice(0,4);
@@ -179,12 +180,15 @@ function StandingsRows({ league, rows }: { league: typeof mplLeague; rows: reado
 }
 
 function MatchesPanel({ league }: { league: typeof mplLeague }) {
+  const expectedMatches = Math.round(league.teams.reduce((sum, team) => sum + team.played, 0) / 2);
+  const missingMatches = Math.max(0, expectedMatches - league.matches.length);
   const [round, setRound] = useState("all");
   const rounds = Array.from(new Set(league.matches.map((m) => m.round))).sort((a,b)=>a-b);
   const shown = round === "all" ? league.matches : league.matches.filter((m) => String(m.round) === round);
   return <section className="mt-7 rounded-2xl border border-white/10 bg-[#121a18] p-5 md:p-7"><div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Матчи и результаты</h2><p className="mt-1 text-sm text-slate-400">Загружено {league.matches.length} из {expectedMatches} матчей, соответствующих числу игр в таблице</p></div><select value={round} onChange={(e)=>setRound(e.target.value)} className="rounded-xl border border-white/10 bg-[#0b1210] px-3 py-2 text-sm text-slate-200 outline-none"><option value="all">Все загруженные туры</option>{rounds.map((n)=><option key={n} value={String(n)}>{n}-й тур</option>)}</select></div>
     <div className="mt-6 grid gap-3 md:grid-cols-2">{shown.map((match,i)=><MatchCard key={i} match={match}/>)}</div>
-    <p className="mt-5 text-xs text-slate-500">Показаны только результаты, которые удалось подтвердить по публичному источнику. Неопубликованные результаты не подставляются автоматически.</p>
+    {missingMatches > 0 && <div className="mt-5 rounded-xl border border-amber-400/20 bg-amber-400/[.06] p-4 text-sm text-amber-100"><b>Архив матчей неполный.</b> Не хватает {missingMatches} результатов относительно числа сыгранных игр в таблице. Я не подставляю выдуманные счета; для завершения импорта нужна сверка с дополнительным источником.</div>}
+    <p className="mt-3 text-xs text-slate-500">Показаны только результаты, подтверждённые в текущем наборе данных.</p>
   </section>;
 }
 
