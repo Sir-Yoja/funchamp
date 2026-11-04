@@ -1,5 +1,10 @@
 name: Sync Moscow Punk Rock League data from MyChamp
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/sync-mychamp.yml"
+      - "scripts/sync_mychamp.py"
   workflow_dispatch:
   schedule:
     - cron: "17 */6 * * *"
