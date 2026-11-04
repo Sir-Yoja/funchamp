@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import {
   Trophy, Table2, CalendarDays, Shield, Users, Menu, X, ExternalLink,
   MapPin, Search, ChevronRight, ArrowLeft, ChartNoAxesCombined, Goal,
-  Handshake, UserRound, Flag, Layers3
+  Layers3
 } from "lucide-react";
 import { mplLeague } from "./data/mpl-2026-2027";
 
