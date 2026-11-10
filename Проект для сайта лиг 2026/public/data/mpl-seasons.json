@@ -1,0 +1,120 @@
+{
+  "league": "Moscow Punk Rock League",
+  "source": "https://mychamp.ru/ru/championships/202",
+  "archiveCheckedAt": "2026-11-10",
+  "seasons": [
+    {
+      "season": "2012/2013",
+      "label": "октябрь 2012 — май 2013",
+      "mychampSeasonId": 250,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=250"
+    },
+    {
+      "season": "2013/2014",
+      "label": "сентябрь 2013 — июль 2014",
+      "mychampSeasonId": 418,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=418"
+    },
+    {
+      "season": "2014/2015",
+      "label": "октябрь 2014 — июль 2015",
+      "mychampSeasonId": 766,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=766"
+    },
+    {
+      "season": "2015/2016",
+      "label": "сентябрь 2015 — июль 2016",
+      "mychampSeasonId": 1435,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=1435"
+    },
+    {
+      "season": "2016/2017",
+      "label": "сентябрь 2016 — июль 2017",
+      "mychampSeasonId": 2035,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=2035"
+    },
+    {
+      "season": "2017/2018",
+      "label": "август 2017 — июнь 2018",
+      "mychampSeasonId": 2549,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=2549"
+    },
+    {
+      "season": "2018/2019",
+      "label": "сентябрь 2018 — июнь 2019",
+      "mychampSeasonId": 3037,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=3037"
+    },
+    {
+      "season": "2019/2020",
+      "label": "август 2019 — сентябрь 2020",
+      "mychampSeasonId": 3780,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=3780"
+    },
+    {
+      "season": "2020/2021",
+      "label": "сентябрь 2020 — июль 2021",
+      "mychampSeasonId": 4542,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=4542"
+    },
+    {
+      "season": "2021/2022",
+      "label": "август 2021 — июль 2022",
+      "mychampSeasonId": 5144,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=5144"
+    },
+    {
+      "season": "2022/2023",
+      "label": "сентябрь 2022 — июнь 2023",
+      "mychampSeasonId": 5673,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=5673"
+    },
+    {
+      "season": "2023/2024",
+      "label": "сентябрь 2023 — июль 2024",
+      "mychampSeasonId": 6235,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=6235"
+    },
+    {
+      "season": "2024/2025",
+      "label": "август 2024 — июль 2025",
+      "mychampSeasonId": 6826,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=6826"
+    },
+    {
+      "season": "2025/2026",
+      "label": "август 2025 — июнь 2026",
+      "mychampSeasonId": 7357,
+      "status": "archive",
+      "url": "https://mychamp.ru/championships/202?season=7357"
+    },
+    {
+      "season": "2026/2027",
+      "label": "август 2026 — июль 2027",
+      "mychampSeasonId": null,
+      "status": "current",
+      "url": "https://mychamp.ru/ru/championships/202"
+    }
+  ],
+  "sourceSections": {
+    "matches": "/games",
+    "standings": "/show_table",
+    "statistics": "/statistic",
+    "registeredPlayers": "/tickets/all",
+    "teamApplications": "/tickets"
+  },
+  "importPolicy": "Import factual records only. Preserve source season and source URL for every record. Do not infer missing player identities or statistics."
+}
