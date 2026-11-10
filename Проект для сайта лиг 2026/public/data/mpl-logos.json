@@ -1,0 +1,94 @@
+{
+  "league": {
+    "name": "Moscow Punk Rock League",
+    "logo": "https://mychamp.ru/system/championships/202/large.jpg",
+    "source": "https://mychamp.ru/championships/202"
+  },
+  "teams": [
+    {
+      "name": "Beamish FC",
+      "mychampId": 2186,
+      "logo": "https://mychamp.ru/system/clubs/2186/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/2186"
+    },
+    {
+      "name": "Bedros Pilibos",
+      "mychampId": 35749,
+      "logo": "https://mychamp.ru/system/clubs/35749/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/35749"
+    },
+    {
+      "name": "Fc King is Dead",
+      "mychampId": 2182,
+      "logo": "https://mychamp.ru/system/clubs/2182/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/2182"
+    },
+    {
+      "name": "ЛФК Балдёж",
+      "mychampId": 40283,
+      "logo": "https://mychamp.ru/system/clubs/40283/mini.png",
+      "profile": "https://mychamp.ru/clubs/40283"
+    },
+    {
+      "name": "Тасманские Дьяволы",
+      "mychampId": 14120,
+      "logo": "https://mychamp.ru/system/clubs/14120/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/14120"
+    },
+    {
+      "name": "ФК Вечер Пятницы",
+      "mychampId": 5326,
+      "logo": "https://mychamp.ru/system/clubs/5326/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/5326"
+    },
+    {
+      "name": "ФК Други",
+      "mychampId": 9021,
+      "logo": "https://mychamp.ru/system/clubs/9021/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/9021"
+    },
+    {
+      "name": "ФК Душевой Флирт",
+      "mychampId": 18308,
+      "logo": "https://mychamp.ru/system/clubs/18308/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/18308"
+    },
+    {
+      "name": "ФК Клещи",
+      "mychampId": 29818,
+      "logo": "https://mychamp.ru/system/clubs/29818/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/29818"
+    },
+    {
+      "name": "ФК Петруч",
+      "mychampId": 7118,
+      "logo": "https://mychamp.ru/system/clubs/7118/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/7118"
+    },
+    {
+      "name": "ФК Ракета",
+      "mychampId": 2178,
+      "logo": "https://mychamp.ru/system/clubs/2178/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/2178"
+    },
+    {
+      "name": "ФК Старые Дрожжи",
+      "mychampId": 40343,
+      "logo": "https://mychamp.ru/system/clubs/40343/mini.jpeg",
+      "profile": "https://mychamp.ru/clubs/40343"
+    },
+    {
+      "name": "ФК Черные но Синие",
+      "mychampId": 9018,
+      "logo": "https://mychamp.ru/system/clubs/9018/mini.jpg",
+      "profile": "https://mychamp.ru/clubs/9018"
+    },
+    {
+      "name": "ФК ЩИТ",
+      "mychampId": 5296,
+      "logo": "https://mychamp.ru/system/clubs/5296/mini.png",
+      "profile": "https://mychamp.ru/clubs/5296"
+    }
+  ],
+  "note": "Официальные логотипы привязаны к профилям MyChamp. Изображения загружаются с MyChamp; локальные бинарные копии в этот каталог не включены."
+}
